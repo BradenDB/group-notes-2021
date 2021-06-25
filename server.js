@@ -100,7 +100,7 @@ app.post("/todo", function (req, res) {
   let creatingTodo = {
     title: req.body.title || "",
     notes: req.body.notes || "",
-    done: req.body.done || false,
+    
     deadline: req.body.deadline || new Date(),
   };
 
@@ -161,10 +161,7 @@ app.patch("/todo/:id", function (req, res) {
   if (req.body.deadline !== null && req.body.deadline !== undefined) {
     updateTodo.deadline = req.body.deadline;
   }
-  // done
-  if (req.body.done !== null && req.body.done !== undefined) {
-    updateTodo.done = req.body.done;
-  }
+  
 
   Todo.updateOne(
     { _id: req.params.id },
@@ -199,7 +196,7 @@ app.put("/todo/:id", function (req, res) {
   let updateTodo = {
     title: req.body.title || "",
     notes: req.body.notes || "",
-    done: req.body.done || false,
+    
     deadline: req.body.deadline || new Date(),
   };
 
