@@ -99,7 +99,7 @@ app.post("/todo", function (req, res) {
 
   let creatingTodo = {
     title: req.body.title || "",
-    description: req.body.description || "",
+    notes: req.body.notes || "",
     done: req.body.done || false,
     deadline: req.body.deadline || new Date(),
   };
@@ -153,9 +153,9 @@ app.patch("/todo/:id", function (req, res) {
   if (req.body.title !== null && req.body.title !== undefined) {
     updateTodo.title = req.body.title;
   }
-  // description
-  if (req.body.description !== null && req.body.description !== undefined) {
-    updateTodo.description = req.body.description;
+  // notes
+  if (req.body.notes !== null && req.body.notes !== undefined) {
+    updateTodo.notes = req.body.notes;
   }
   // deadline
   if (req.body.deadline !== null && req.body.deadline !== undefined) {
@@ -198,7 +198,7 @@ app.put("/todo/:id", function (req, res) {
 
   let updateTodo = {
     title: req.body.title || "",
-    description: req.body.description || "",
+    notes: req.body.notes || "",
     done: req.body.done || false,
     deadline: req.body.deadline || new Date(),
   };
