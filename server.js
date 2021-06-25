@@ -34,8 +34,8 @@ app.get("/todo", (req, res) => {
   let findQuery = {};
 
   console.log(req.query);
-  if (req.query.name !== null && req.query.name !== undefined) {
-    findQuery.name = req.query.name;
+  if (req.query.title !== null && req.query.title !== undefined) {
+    findQuery.title = req.query.title;
   }
 
   if (
@@ -98,7 +98,7 @@ app.post("/todo", function (req, res) {
   console.log(`creating a note with body`, req.body);
 
   let creatingTodo = {
-    name: req.body.name || "",
+    title: req.body.title || "",
     description: req.body.description || "",
     done: req.body.done || false,
     deadline: req.body.deadline || new Date(),
@@ -149,9 +149,9 @@ app.patch("/todo/:id", function (req, res) {
   console.log(`updating note with id: ${req.params.id} with body`, req.body);
 
   let updateTodo = {};
-  // name
-  if (req.body.name !== null && req.body.name !== undefined) {
-    updateTodo.name = req.body.name;
+  // title
+  if (req.body.title !== null && req.body.title !== undefined) {
+    updateTodo.title = req.body.title;
   }
   // description
   if (req.body.description !== null && req.body.description !== undefined) {
@@ -197,7 +197,7 @@ app.put("/todo/:id", function (req, res) {
   console.log(`replacing note with id: ${req.params.id} with body`, req.body);
 
   let updateTodo = {
-    name: req.body.name || "",
+    title: req.body.title || "",
     description: req.body.description || "",
     done: req.body.done || false,
     deadline: req.body.deadline || new Date(),
