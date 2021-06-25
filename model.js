@@ -1,10 +1,8 @@
 const mongoose = require("mongoose");
 
 const todoSchema = mongoose.Schema({
-  name: String,
-  description: String,
-  done: Boolean,
-  deadline: Date,
+  title: String,
+  notes: String,
 });
 
 const Todo = mongoose.model("Todo", todoSchema);
@@ -17,7 +15,6 @@ module.exports = {
 };
 
 // TODO Schema
-// name: String,
-// description: String,
-// done: Boolean,
-// deadline: Date,
+// title: String,
+// notes: String,
+
