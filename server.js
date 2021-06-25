@@ -16,8 +16,7 @@ app.use(cors());
 // this is where we will do our own middleware
 app.use((req, res, next) => {
   console.log(
-    "Time: ",
-    Date.now(),
+    
     " - Method: ",
     req.method,
     " - Path: ",
@@ -38,12 +37,7 @@ app.get("/todo", (req, res) => {
     findQuery.title = req.query.title;
   }
 
-  if (
-    req.query.afterDeadline !== null &&
-    req.query.afterDeadline !== undefined
-  ) {
-    findQuery.$deadline = { $gt: new ISODate(req.query.afterDeadline) };
-  }
+  
 
   console.log("getting all notes with find query", findQuery);
   // return all of the todos in the store
@@ -101,7 +95,7 @@ app.post("/todo", function (req, res) {
     title: req.body.title || "",
     notes: req.body.notes || "",
     
-    deadline: req.body.deadline || new Date(),
+    
   };
 
   Todo.create(creatingTodo, (err, todo) => {
@@ -157,10 +151,7 @@ app.patch("/todo/:id", function (req, res) {
   if (req.body.notes !== null && req.body.notes !== undefined) {
     updateTodo.notes = req.body.notes;
   }
-  // deadline
-  if (req.body.deadline !== null && req.body.deadline !== undefined) {
-    updateTodo.deadline = req.body.deadline;
-  }
+  
   
 
   Todo.updateOne(
@@ -197,7 +188,7 @@ app.put("/todo/:id", function (req, res) {
     title: req.body.title || "",
     notes: req.body.notes || "",
     
-    deadline: req.body.deadline || new Date(),
+    
   };
 
   Todo.updateOne(
