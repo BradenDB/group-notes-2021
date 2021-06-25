@@ -45,15 +45,15 @@ app.get("/todo", (req, res) => {
     findQuery.$deadline = { $gt: new ISODate(req.query.afterDeadline) };
   }
 
-  console.log("getting all todos with find query", findQuery);
+  console.log("getting all notes with find query", findQuery);
   // return all of the todos in the store
 
   Todo.find(findQuery, function (err, todos) {
     // check if there was an error
     if (err) {
-      console.log(`there was an error listing todos`, err);
+      console.log(`there was an error listing notes`, err);
       // send back the error
-      res.status(500).json({ message: `unable to list todos`, error: err });
+      res.status(500).json({ message: `unable to list notes`, error: err });
       return;
     }
     // success!!! return all the todos
@@ -64,23 +64,23 @@ app.get("/todo", (req, res) => {
 // Get - gets the todo with the given id
 app.get("/todo/:id", function (req, res) {
   res.setHeader("Content-Type", "application/json");
-  console.log(`getting todo with id: ${req.params.id}`);
+  console.log(`getting note with id: ${req.params.id}`);
   Todo.findById(req.params.id, (err, todo) => {
     // check if there was an error
     if (err) {
       console.log(
-        `there was an error finding a todo with id ${req.params.id}`,
+        `there was an error finding a note with id ${req.params.id}`,
         err
       );
       // send back the error
       res.status(500).json({
-        message: `unable to find todo with id ${req.params.id}`,
+        message: `unable to find note with id ${req.params.id}`,
         error: err,
       });
     } else if (todo === null) {
-      console.log(`unable to find todo with id ${req.params.id}`);
+      console.log(`unable to find note with id ${req.params.id}`);
       res.status(404).json({
-        message: `todo with id ${req.params.id} not found`,
+        message: `note with id ${req.params.id} not found`,
         error: err,
       });
     } else {
@@ -95,7 +95,7 @@ let nextID = 0;
 // Post - crates one todo (does not have a URL param)
 app.post("/todo", function (req, res) {
   res.setHeader("Content-Type", "application/json");
-  console.log(`creating a todo with body`, req.body);
+  console.log(`creating a note with body`, req.body);
 
   let creatingTodo = {
     name: req.body.name || "",
@@ -107,9 +107,9 @@ app.post("/todo", function (req, res) {
   Todo.create(creatingTodo, (err, todo) => {
     // check if there is an error
     if (err) {
-      console.log(`unable to create todo`);
+      console.log(`unable to create note`);
       res.status(500).json({
-        message: "unable to create todo",
+        message: "unable to create note",
         error: err,
       });
       return;
@@ -122,20 +122,20 @@ app.post("/todo", function (req, res) {
 // Delete - deletes the todo with the given id
 app.delete("/todo/:id", function (req, res) {
   res.setHeader("Content-Type", "application/json");
-  console.log(`deleting todo with id: ${req.params.id}`);
+  console.log(`deleting note with id: ${req.params.id}`);
 
   Todo.findByIdAndDelete(req.params.id, function (err, todo) {
     if (err) {
-      console.log(`unable to delete todo`);
+      console.log(`unable to delete note`);
       res.status(500).json({
-        message: "unable to delete todo",
+        message: "unable to delete note",
         error: err,
       });
       return;
     } else if (todo === null) {
-      console.log(`unable to delete todo with id ${req.params.id}`);
+      console.log(`unable to delete note with id ${req.params.id}`);
       res.status(404).json({
-        message: `todo with id ${req.params.id} not found`,
+        message: `note with id ${req.params.id} not found`,
         error: err,
       });
     } else {
@@ -146,7 +146,7 @@ app.delete("/todo/:id", function (req, res) {
 
 // Patch - updates the todo with the given id
 app.patch("/todo/:id", function (req, res) {
-  console.log(`updating todo with id: ${req.params.id} with body`, req.body);
+  console.log(`updating note with id: ${req.params.id} with body`, req.body);
 
   let updateTodo = {};
   // name
@@ -173,16 +173,16 @@ app.patch("/todo/:id", function (req, res) {
     },
     function (err, updateOneResponse) {
       if (err) {
-        console.log(`unable to patch todo`);
+        console.log(`unable to patch note`);
         res.status(500).json({
-          message: "unable to patch todo",
+          message: "unable to patch note",
           error: err,
         });
         return;
       } else if (updateOneResponse.n === 0) {
-        console.log(`unable to patch todo with id ${req.params.id}`);
+        console.log(`unable to patch note with id ${req.params.id}`);
         res.status(404).json({
-          message: `todo with id ${req.params.id} not found`,
+          message: `note with id ${req.params.id} not found`,
           error: err,
         });
       } else {
@@ -194,7 +194,7 @@ app.patch("/todo/:id", function (req, res) {
 
 // Put - replaces the todo with the given id`
 app.put("/todo/:id", function (req, res) {
-  console.log(`replacing todo with id: ${req.params.id} with body`, req.body);
+  console.log(`replacing note with id: ${req.params.id} with body`, req.body);
 
   let updateTodo = {
     name: req.body.name || "",
@@ -208,16 +208,16 @@ app.put("/todo/:id", function (req, res) {
     { $set: { updateTodo } },
     function (err, updateOneResponse) {
       if (err) {
-        console.log(`unable to replace todo`);
+        console.log(`unable to replace note`);
         res.status(500).json({
-          message: "unable to replace todo",
+          message: "unable to replace note",
           error: err,
         });
         return;
       } else if (updateOneResponse.n === 0) {
-        console.log(`unable to replace todo with id ${req.params.id}`);
+        console.log(`unable to replace note with id ${req.params.id}`);
         res.status(404).json({
-          message: `todo with id ${req.params.id} not found`,
+          message: `note with id ${req.params.id} not found`,
           error: err,
         });
       } else {
